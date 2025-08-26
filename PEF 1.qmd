@@ -1,0 +1,71 @@
+---
+title: "PEF 1: Comparación de Modelos para la Predicción de la Volatilidad"
+format: html
+editor: visual
+bibliography: pef-bib.bib
+csl: apa.csl
+---
+
+# Tarea 1.
+
+## Miembros del equipo.
+
+1.  Alberto De la Peña García
+
+2.  Edgar Alejandro Gonzalez Lira
+
+3.  Ana Paula Martinez Santos
+
+4.  José Pablo Tamez Ayala
+
+## Tema.
+
+Comparación de Modelos para la Predicción de la Volatilidad: Un Estudio Empírico Aplicado al Mercado Financiero.
+
+## Asesor.
+
+Dr. Martín Lozano Banda.
+
+## Objetivo General 1.
+
+Replicar y extender modelos de predicción de volatilidad propuestos en la literatura a través de la implementación de nuevas metodologías y variables explicativas con el fin de comparar e identificar el enfoque más robusto y preciso.
+
+### Objetivo Específico 1.1.
+
+Implementar y contrastar metodologías de Machine Learning adicionales.
+
+### Objetivo Específico 1.2.
+
+Ampliar el set de variables explicativas y contrastar su poder predictivo frente a los modelos anteriores.
+
+### Objetivo Específico 1.3.
+
+Escalar a una base de datos más amplia y reciente para evaluar el desempeño de los modelos bajo diferentes escenarios de mercado.
+
+## Objetivo General 2.
+
+Aplicar el mejor modelo de predicción de volatilidad en contextos financieros prácticos para evaluar su valor agregado frente a medidas tradicionales de volatilidad.
+
+### Objetivo Específico 2.1.
+
+Identificar y seleccionar diferentes contextos financieros en los que la predicción de volatilidad pueda aportar valor.
+
+### Objetivo Específico 2.2.
+
+Diseñar una metodología de implementación que permita contrastar el uso de la volatilidad predicha por los modelos frente a medidas tradicionales.
+
+# Tarea 2.
+
+## A machine learning approach to volatility forecasting. @christensen2023machine
+
+Este artículo evalúa de forma sistemática qué tan competitivos son diversos algoritmos de *machine learning* (ML) para pronosticar la varianza realizada (RV) frente a la familia de modelos HAR/HAR-X. Aporta una comparación entre métodos de regularización (ridge, lasso, elastic net), árboles (bagging, random forest, gradient boosting) y redes neuronales. También establece evidencia de que el ML extrae información incremental a partir de covariables adicionales, así como un marco de interpretabilidad basado en *Accumulated Local Effects* (ALE) para entender importancia y relaciones no lineales entre predictores.
+
+### Datos y variables
+
+Utilizan 29 acciones del índice Dow Jones Industrial Average (DJIA), con horizonte de un día adelante, en el periodo 2001-2017. La RV se construye con datos de alta frecuencia. Además de los rezagos diarios, semanales y mensuales de la RV (RVD, RVW, RVM), incorporan la volatilidad implícita (IV), un indicador de anuncio de resultados (EA), un índice de incertidumbre de política econímica (EPU), VIX, la tasa T-bill a 1 mes (US1M), *momentum* a 1 semana (M1W), retorno del Hang Seng (HSI), volumen en dólares (DVOL), y wl índice ADS de condiciones de negocio. Para organizar la información definen tres conjuntos de datos: M1 (sólo rezagos de RV), M2 (subconjunto "óptimo" vía BIC) y M3 (conjunto amplio de 12+ variables).
+
+@audrino2020impact
+
+{{< pagebreak >}}
+
+# Bibliografía

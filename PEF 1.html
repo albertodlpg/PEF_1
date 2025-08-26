@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>PEF 1: Comparación de Modelos para la Predicción de la Volatilidad</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="PEF 1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PEF 1_files/libs/quarto-html/quarto.js"></script>
+<script src="PEF 1_files/libs/quarto-html/popper.min.js"></script>
+<script src="PEF 1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="PEF 1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="PEF 1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PEF 1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="PEF 1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="PEF 1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="PEF 1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">PEF 1: Comparación de Modelos para la Predicción de la Volatilidad</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="tarea-1." class="level1">
+<h1>Tarea 1.</h1>
+<section id="miembros-del-equipo." class="level2">
+<h2 class="anchored" data-anchor-id="miembros-del-equipo.">Miembros del equipo.</h2>
+<ol type="1">
+<li><p>Alberto De la Peña García</p></li>
+<li><p>Edgar Alejandro Gonzalez Lira</p></li>
+<li><p>Ana Paula Martinez Santos</p></li>
+<li><p>José Pablo Tamez Ayala</p></li>
+</ol>
+</section>
+<section id="tema." class="level2">
+<h2 class="anchored" data-anchor-id="tema.">Tema.</h2>
+<p>Comparación de Modelos para la Predicción de la Volatilidad: Un Estudio Empírico Aplicado al Mercado Financiero.</p>
+</section>
+<section id="asesor." class="level2">
+<h2 class="anchored" data-anchor-id="asesor.">Asesor.</h2>
+<p>Dr.&nbsp;Martín Lozano Banda.</p>
+</section>
+<section id="objetivo-general-1." class="level2">
+<h2 class="anchored" data-anchor-id="objetivo-general-1.">Objetivo General 1.</h2>
+<p>Replicar y extender modelos de predicción de volatilidad propuestos en la literatura a través de la implementación de nuevas metodologías y variables explicativas con el fin de comparar e identificar el enfoque más robusto y preciso.</p>
+<section id="objetivo-específico-1.1." class="level3">
+<h3 class="anchored" data-anchor-id="objetivo-específico-1.1.">Objetivo Específico 1.1.</h3>
+<p>Implementar y contrastar metodologías de Machine Learning adicionales.</p>
+</section>
+<section id="objetivo-específico-1.2." class="level3">
+<h3 class="anchored" data-anchor-id="objetivo-específico-1.2.">Objetivo Específico 1.2.</h3>
+<p>Ampliar el set de variables explicativas y contrastar su poder predictivo frente a los modelos anteriores.</p>
+</section>
+<section id="objetivo-específico-1.3." class="level3">
+<h3 class="anchored" data-anchor-id="objetivo-específico-1.3.">Objetivo Específico 1.3.</h3>
+<p>Escalar a una base de datos más amplia y reciente para evaluar el desempeño de los modelos bajo diferentes escenarios de mercado.</p>
+</section>
+</section>
+<section id="objetivo-general-2." class="level2">
+<h2 class="anchored" data-anchor-id="objetivo-general-2.">Objetivo General 2.</h2>
+<p>Aplicar el mejor modelo de predicción de volatilidad en contextos financieros prácticos para evaluar su valor agregado frente a medidas tradicionales de volatilidad.</p>
+<section id="objetivo-específico-2.1." class="level3">
+<h3 class="anchored" data-anchor-id="objetivo-específico-2.1.">Objetivo Específico 2.1.</h3>
+<p>Identificar y seleccionar diferentes contextos financieros en los que la predicción de volatilidad pueda aportar valor.</p>
+</section>
+<section id="objetivo-específico-2.2." class="level3">
+<h3 class="anchored" data-anchor-id="objetivo-específico-2.2.">Objetivo Específico 2.2.</h3>
+<p>Diseñar una metodología de implementación que permita contrastar el uso de la volatilidad predicha por los modelos frente a medidas tradicionales.</p>
+</section>
+</section>
+</section>
+<section id="tarea-2." class="level1">
+<h1>Tarea 2.</h1>
+<section id="a-machine-learning-approach-to-volatility-forecasting.-christensen2023machine" class="level2">
+<h2 class="anchored" data-anchor-id="a-machine-learning-approach-to-volatility-forecasting.-christensen2023machine">A machine learning approach to volatility forecasting. <span class="citation" data-cites="christensen2023machine">Christensen et al. (<a href="#ref-christensen2023machine" role="doc-biblioref">2023</a>)</span></h2>
+<p>Este artículo evalúa de forma sistemática qué tan competitivos son diversos algoritmos de <em>machine learning</em> (ML) para pronosticar la varianza realizada (RV) frente a la familia de modelos HAR/HAR-X. Aporta una comparación entre métodos de regularización (ridge, lasso, elastic net), árboles (bagging, random forest, gradient boosting) y redes neuronales. También establece evidencia de que el ML extrae información incremental a partir de covariables adicionales, así como un marco de interpretabilidad basado en <em>Accumulated Local Effects</em> (ALE) para entender importancia y relaciones no lineales entre predictores.</p>
+<section id="datos-y-variables" class="level3">
+<h3 class="anchored" data-anchor-id="datos-y-variables">Datos y variables</h3>
+<p>Utilizan 29 acciones del índice Dow Jones Industrial Average (DJIA), con horizonte de un día adelante, en el periodo 2001-2017. La RV se construye con datos de alta frecuencia. Además de los rezagos diarios, semanales y mensuales de la RV (RVD, RVW, RVM), incorporan la volatilidad implícita (IV), un indicador de anuncio de resultados (EA), un índice de incertidumbre de política econímica (EPU), VIX, la tasa T-bill a 1 mes (US1M), <em>momentum</em> a 1 semana (M1W), retorno del Hang Seng (HSI), volumen en dólares (DVOL), y wl índice ADS de condiciones de negocio. Para organizar la información definen tres conjuntos de datos: M1 (sólo rezagos de RV), M2 (subconjunto “óptimo” vía BIC) y M3 (conjunto amplio de 12+ variables).</p>
+<p><span class="citation" data-cites="audrino2020impact">Audrino et al. (<a href="#ref-audrino2020impact" role="doc-biblioref">2020</a>)</span></p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+</section>
+<section id="bibliografía" class="level1 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliografía</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-audrino2020impact" class="csl-entry" role="listitem">
+Audrino, F., Sigrist, F., &amp; Ballinari, D. (2020). The impact of sentiment and attention measures on stock market volatility. <em>International Journal of Forecasting</em>, <em>36</em>(2), 334–357.
+</div>
+<div id="ref-christensen2023machine" class="csl-entry" role="listitem">
+Christensen, K., Siggaard, M., &amp; Veliyev, B. (2023). A machine learning approach to volatility forecasting. <em>Journal of Financial Econometrics</em>, <em>21</em>(5), 1680–1727.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
