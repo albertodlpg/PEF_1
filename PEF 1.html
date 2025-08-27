@@ -132,9 +132,31 @@ div.csl-indent {
 <section id="a-machine-learning-approach-to-volatility-forecasting.-christensen2023machine" class="level2">
 <h2 class="anchored" data-anchor-id="a-machine-learning-approach-to-volatility-forecasting.-christensen2023machine">A machine learning approach to volatility forecasting. <span class="citation" data-cites="christensen2023machine">Christensen et al. (<a href="#ref-christensen2023machine" role="doc-biblioref">2023</a>)</span></h2>
 <p>Este artículo evalúa de forma sistemática qué tan competitivos son diversos algoritmos de <em>machine learning</em> (ML) para pronosticar la varianza realizada (RV) frente a la familia de modelos HAR/HAR-X. Aporta una comparación entre métodos de regularización (ridge, lasso, elastic net), árboles (bagging, random forest, gradient boosting) y redes neuronales. También establece evidencia de que el ML extrae información incremental a partir de covariables adicionales, así como un marco de interpretabilidad basado en <em>Accumulated Local Effects</em> (ALE) para entender importancia y relaciones no lineales entre predictores.</p>
-<section id="datos-y-variables" class="level3">
-<h3 class="anchored" data-anchor-id="datos-y-variables">Datos y variables</h3>
+<section id="datos-y-variables." class="level3">
+<h3 class="anchored" data-anchor-id="datos-y-variables.">Datos y variables.</h3>
 <p>Utilizan 29 acciones del índice Dow Jones Industrial Average (DJIA), con horizonte de un día adelante, en el periodo 2001-2017. La RV se construye con datos de alta frecuencia. Además de los rezagos diarios, semanales y mensuales de la RV (RVD, RVW, RVM), incorporan la volatilidad implícita (IV), un indicador de anuncio de resultados (EA), un índice de incertidumbre de política econímica (EPU), VIX, la tasa T-bill a 1 mes (US1M), <em>momentum</em> a 1 semana (M1W), retorno del Hang Seng (HSI), volumen en dólares (DVOL), y wl índice ADS de condiciones de negocio. Para organizar la información definen tres conjuntos de datos: M1 (sólo rezagos de RV), M2 (subconjunto “óptimo” vía BIC) y M3 (conjunto amplio de 12+ variables).</p>
+</section>
+<section id="metodología." class="level3">
+<h3 class="anchored" data-anchor-id="metodología.">Metodología.</h3>
+<p>Comparan HAR/HAR-X contra: ridge, lasso, elastic net; bagging, random fores, gradient boosting; y varias arquitecturas de redes neuronales <em>“off-the-shelf”</em> con ajuste mínimo de hiperparámetros. Evalúan <em>out-of-sample</em> con MSE relativo al HAR y emplean <em>Model Confidence Set</em> (MCS) al 90% para comparar robustamente. También estudian versiones en log-volatilidad (L-HAR, etc.).</p>
+</section>
+<section id="resultados-principales." class="level3">
+<h3 class="anchored" data-anchor-id="resultados-principales.">Resultados principales.</h3>
+<ul>
+<li><p>Desempeño predictivo: Los métodos de ML superan consistentemente al HAR; entre ellos, random forest y redes neuronales suelen liderar.</p></li>
+<li><p>Información incremental: Frente a HAR-X, el ML extrae más señal de covariables adicionales y maneja mejor correlaciones altas, baja señal/ruido y no linealidades.</p></li>
+<li><p>Estados del mercado: ML mantiene ventajas tanto en episodios tranquilos como turbulentos; HAR-X tiende a deteriorarse en alta volatilidad. Con log-volatilidad, L-HAR-X mejora, pero L_NN vuelve a dominar en régimenes medio-altos.</p></li>
+</ul>
+</section>
+<section id="limitaciones-y-alcances" class="level3">
+<h3 class="anchored" data-anchor-id="limitaciones-y-alcances">Limitaciones y alcances</h3>
+<p>El estudio se centra en acciones del DJIA y en horizontes de un día y persisten preguntas sobre la transferibilidad a otros activos/mercados y el <em>tuning</em> de hiperparámetros más agresivo.</p>
+<p>Existen diferentes oportunidades de extensión para nuestro proyecto, entre ellas:</p>
+<ul>
+<li><p>Extender con nuevos métodos de boosting moderno (XGBoost/LightGBM), redes recurrentes/transformers para series, y regulación con búsqueda sistemática de hiperparámetros.</p></li>
+<li><p>Ampliar variables explicativas de análisis de sentimiento.</p></li>
+<li><p>Evaluar más horizontes de tiempo.</p></li>
+</ul>
 <p><span class="citation" data-cites="audrino2020impact">Audrino et al. (<a href="#ref-audrino2020impact" role="doc-biblioref">2020</a>)</span></p>
 <div style="page-break-after: always;"></div>
 </section>
