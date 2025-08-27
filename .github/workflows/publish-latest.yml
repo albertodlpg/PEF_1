@@ -2,7 +2,7 @@ name: publish-latest-pdf
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
