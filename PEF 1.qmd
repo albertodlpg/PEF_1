@@ -1,6 +1,6 @@
 ---
 title: "PEF 1: Comparación de Modelos para la Predicción de la Volatilidad"
-format: html
+format: pdf
 editor: visual
 bibliography: pef-bib.bib
 csl: apa.csl
