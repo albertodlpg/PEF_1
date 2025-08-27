@@ -1,0 +1,19 @@
+project:
+  type: default
+
+format:
+  pdf:
+    output-file: latest
+    toc: true
+    number-sections: true
+    fig-cap-location: bottom
+    df-print: default
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false
+
+bibliography: refs/references.bib
+csl: refs/apa.csl

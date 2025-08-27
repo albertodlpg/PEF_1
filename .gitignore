@@ -1,6 +1,41 @@
-.Rproj.user
+# R / RStudio
+.Rproj.user/
 .Rhistory
-.Rdata
-.httr-oauth
+.RData
+.Ruserdata
+.Renviron
+
+# renv
+renv/library/
+renv/staging/
+renv/profiles/
+
+# Quarto / knitr / caches
+_freeze/
+*_cache/
+.quarto/
+
+# Archivos generados por Quarto HTML
+*_files/
+
+# LaTeX intermediates
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# SO/macOS
 .DS_Store
-.quarto
+.httr-oauth
+
+# Artefactos / binarios
+/outputs/
+*.pdf
+*.docx
+*.html
+*.zip
