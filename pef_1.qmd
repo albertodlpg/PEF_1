@@ -118,7 +118,8 @@ Evidencia in-sample:
 
 Desempeño out-of-sample:
 
--   Horizonte 1 día:
+-   Horizonte 1 día: respecto al HAR base, añadir económicas (Economic-HAR) reduce el MSPE; al agregar sentimiento/atención (Sentiment-HAR), el MSPE baja aún más (para 12/18 acciones y el Dow Jones) y el R\^2 OOS mejora en promedio ≈1.26% vs Economic-HAR.
+-   Horizontes 5 y 22 días: las mejoras adicionales por sentimiento/atención existen pero son más modestas y menos generalizadas, lo que sugiere un efecto de corta duración.
 
 ## Revisión Literaria. \[ALT\]
 
