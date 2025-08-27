@@ -5,7 +5,7 @@ format:
   pdf:
     output-file: latest
     toc: true
-    number-sections: true
+    number-sections: false
     fig-cap-location: bottom
     df-print: default
 
