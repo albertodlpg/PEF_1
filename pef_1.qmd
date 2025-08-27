@@ -2,8 +2,6 @@
 title: "PEF 1: Comparación de Modelos para la Predicción de la Volatilidad"
 format: pdf
 editor: visual
-bibliography: pef-bib.bib
-csl: apa.csl
 ---
 
 # Tarea 1.
@@ -134,7 +132,7 @@ En este sentido, @christensen2023machine ofrecen un aporte fundamental al demost
 
 Sus resultados, obtenidos con datos de alta frecuencia de acciones del Dow Jones Industrial Average, muestran reducciones de hasta un 12% en el error cuadrático medio (MSE) frente al benchmark tradicional, incluso en entornos enriquecidos con predictores adicionales como volatilidad implícita, volumen de negociación y factores macroeconómicos.
 
-Otros estudios recientes refuerzan esta evidencia. @zhang2022volatility , en Journal of Financial Econometrics, documentan que los modelos de deep learning aplicados al análisis de \"intraday commonality\" ---patrones compartidos de volatilidad a nivel intradía--- ofrecen mejoras sustanciales respecto al HAR y a algoritmos de árboles.
+Otros estudios recientes refuerzan esta evidencia. @zhang2022volatility , en Journal of Financial Econometrics, documentan que los modelos de deep learning aplicados al análisis de "intraday commonality" ---patrones compartidos de volatilidad a nivel intradía--- ofrecen mejoras sustanciales respecto al HAR y a algoritmos de árboles.
 
 Por su parte, @kumar2025hybrid , en International Review of Economics & Finance, proponen modelos híbridos que integran descomposición de la señal mediante VMD con redes ANN, LSTM y GRU, concluyendo que estas arquitecturas son más precisas y robustas, especialmente bajo condiciones de riesgo extremo. Estos aportes consolidan el consenso en torno a que el ML ---en particular sus variantes profundas e híbridas--- representa la frontera actual en predicción de volatilidad.
 

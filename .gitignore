@@ -39,3 +39,4 @@ _freeze/
 *.docx
 *.html
 *.zip
+/.quarto/
