@@ -154,6 +154,8 @@ En conjunto, la literatura converge en dos hallazgos centrales.
 
 No obstante, persisten vacíos relevantes: la falta de consenso sobre métricas de evaluación más allá del MSE, la necesidad de explorar de forma más sistemática la interacción entre volatilidad realizada e implícita en contextos de ML, y la escasez de replicaciones en bases de datos más recientes y amplias. Estos vacíos constituyen precisamente el espacio de contribución original que busca llenar la presente investigación.
 
+Prueba
+
 {{< pagebreak >}}
 
 # Bibliografía
