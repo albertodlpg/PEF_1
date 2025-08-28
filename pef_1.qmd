@@ -4,6 +4,8 @@ format: pdf
 editor: visual
 ---
 
+{{< pagebreak >}}
+
 # Tarea 1.
 
 ## Miembros del equipo.
