@@ -58,29 +58,137 @@ Comparar el desempeño del modelo frente a medidas tradicionales de volatilidad 
 
 Analizar el impacto de la mejora en la predicción de volatilidad sobre métricas de error de valuación y en la efectividad de estrategias de cobertura, como evidencia del valor económico que puede aportar la metodología.
 
-# Tarea 2.
+# Tarea 2. Revisión Literaria
 
-La literatura coincide en que la volatilidad no es observable y debe estimarse, ya sea como volatilidad realizada a partir de datos intradía o como volatilidad implícita a partir de precios de opciones, y que su pronóstico es fundamental para el *pricing* de derivados, *risk management* y *market making*. El *survey* de @qiu2025historical sintetiza los hechos estilizados de la volatilidad (clustering temporal, long memory, colas pesadas, efecto apalancamiento y reversión a la media) y contrasta cuatro familias de modelos de predicción de volatilidad: estadísticos (ARCH/GARCH y sus variantes), implícitos, Redes Neuronales Recurrentes (RNNs) y *transformers*, con evidencia de que los modelos de *machine learning* (ML) superan a los tradicionales en varios contextos, aunque con desafíos de interpretabilidad.
+La literatura coincide en que la volatilidad no es observable y debe estimarse, ya sea como volatilidad realizada a partir de datos intradía o como volatilidad implícita a partir de precios de opciones, y que su pronóstico es fundamental para el *pricing* de derivados, *risk management* y *market making*. El *survey* de @qiu2025historical sintetiza los hechos estilizados de la volatilidad, entre ellos el clustering temporal, la memoria de largo plazo, las colas pesadas, el efecto apalancamiento y reversión a la media. Asimismo, contrasta cuatro familias de modelos de predicción de volatilidad: los estadísticos como ARCH, GARCH y sus variantes, los implícitos, las Redes Neuronales Recurrentes y los *transformers*. El estudio concluye que los modelos de *machine learning* superan a los tradicionales en varios contextos, aunque con desafíos de interpretabilidad.
 
-El modelo HAR (Corsi, 2009), que consiste en una regresión con lags diarios, semanales y mensuales de la volatilidad realizada, se utiliza como base en casi todos los trabajos con RV. @christensen2023machine toman 29 acciones del DJIA (2001-2017) y comparan HAR y HAR-X con métodos de regularización (ridge/lasso/elastic net), árboles (bagging, RF, boosting) y redes neuronales. Concluyen que implementaciones "off-the-shelf" de ML superan consistentemente a HAR, y que extraen más información de variables firm-específicas y macro cuando se amplía el set (HAR-X). Esta evidencia es consistente con el survey de @qiu2025historical, que registra saltos de desempeño al pasar de modelos lineales a LSTM/transformers, pero recalca el costo en interpretabilidad y la necesidad de benchmarks comparables.
+En esta línea, el modelo HAR (@corsi2009simple) , que consiste en una regresión con lags diarios, semanales y mensuales de la volatilidad realizada, se utiliza como base en casi todos los trabajos con RV. @christensen2023machine toman 29 acciones del DJIA entre 2001 y 2017, comparando HAR y HAR-X con métodos de regularización como *ridge*, *lasso* y *elastic net*, con árboles como *bagging*, RF y *boosting*, así como redes neuronales. Concluyen que implementaciones \"*off-the-shelf*\" de ML superan consistentemente a HAR, y que extraen más información de variables firm-específicas y macro cuando se amplía el set. Esta evidencia es consistente con el *survey* de @qiu2025historical , que registra saltos de desempeño al pasar de modelos lineales a LSTM/*transformers*, pero recalca el costo en interpretabilidad y la necesidad de *benchmarks* comparables.
 
-@kyoung2019performance proponen y evalúan un LSTM sobre cinco índices (S&P 500, NASDAQ, DAX, KOSPI200, IPC) y encuentran que la mejor señal para predecir índice y volatilidad es una variante de momentum híbrido (distancia a medias móviles), y que, a diferencia del índice, la presición de la volatilidad no mejora al añadir muchas *features* (OHLC, volumen, etc.).
+Profundizando en aplicaciones con arquitecturas de *deep learning*, @kyoung2019performance proponen y evalúan un LSTM sobre cinco índices ---S&P 500, NASDAQ, DAX, KOSPI200 e IPC--- y encuentran que la mejor señal para predecir índice y volatilidad es una variante de *momentum* híbrido, medida como distancia a medias móviles, y que, a diferencia del índice, la precisión de la volatilidad no mejora al añadir muchas *features* como precios OHLC o volumen.
 
-Mientras que @christensen2023machine muestran ganancias al ampliar el set de predictores en combinación con ML y regularización, @kyoung2019performance alertan que para la volatilidad no siempre es mejor ya que la señal incremental de *features* genéricas se diluye y puede no aportar. Esto sugiere que el tipo de *feature* y la regularización son críticos.
+Este contraste resulta relevante si se compara con @christensen2023machine , quienes muestran ganancias al ampliar el set de predictores en combinación con ML y regularización, Mientras los primeros encuentran valor en la expansión de variables, los segundos advierten que en el caso de la volatilidad la señal incremental de variables genéricas tiende a diluirse. Esto sugiere que el tipo de feature incorporada y la estrategia de regularización son determinantes en el desempeño
 
-En un análisis más amplio, @DIAZ2024103286 estudian la volatilidad realizada del S&P 500 con más de 170 predictores financieros y macroeconómicos. Encuentran que los modelos de ML superan al HAR en horizontes cortos (1 mes), pero que en horizontes largos (6 y 12 meses) el HAR sigue siendo competitivo. Identifican como *drivers* clave a las medidas de incertidumbre financiera y macroeconómica (VIX, TED spread, EPU, índices de riesgo geopolítico y de política monetaria), así como factores de liquidez, spreads de crédito y variables del ciclo económico. Este resultado contrasta con la visión más optimista de @christensen2023machine, @kyoung2019performance y @zhang2024volatility, y resalta que el valor predictivo de ML depende tanto del horizonte como del tipo de variable utilizada.
+En un análisis más amplio, @DIAZ2024103286 estudian la volatilidad realizada del S&P 500 con más de 170 predictores financieros y macroeconómicos. Encuentran que los modelos de ML superan al HAR en horizontes cortos de un mes, pero que en horizontes largos de 6 y 12 meses, el HAR sigue siendo competitivo. Identifican como *drivers* clave a las medidas de incertidumbre financiera y macroeconómica  como el VIX, el *TED spread*, el EPU y los índices de riesgo geopolítico y de política monetaria, así como factores de liquidez, *spreads* de crédito y variables del ciclo económico. Este resultado contrasta con la visión más optimista de @christensen2023machine , @kyoung2019performance y @zhang2024volatility , y resalta que el valor predictivo de ML depende tanto del horizonte como del tipo de variable utilizada.
 
-@audrino2020impact integran las redes sociales (Twitter/StockTwits), noticias (RavenPack), Google Trends/Wikipedia y un abanico de predictores económicos dentro de un marco HAR con adaptive lasso. En 18 stocks de EE.UU y el DJIA (2012-2016) usando MedRV intradiario y encuentran que la atención (medida en volumen de *posts* y búsquedas) es el determinante más relevante, y que sentimiento/atención mejoran significativamente las predicciones de RV aunque con magnitud económica pequeña.
+Bajo la misma línea de ampliar fuentes de información, @audrino2020impact integran las redes sociales como Twitter y StockTwits, noticias de RavenPack, tendencias de Google y Wikipedia, junto con un abanico de predictores económicos dentro de un marco HAR con *adaptive lasso*. En 18 *stocks* de EE.UU y el DJIA entre 2012 y 2016 usando MedRV intradiario y encuentran que la atención medida en volumen de *posts* y búsquedas es el determinante más relevante, y que sentimiento/atención mejoran significativamente las predicciones de RV aunque con magnitud económica pequeña.
 
-@deveikyte2022sentiment combinan *Latent Dirichlet Allocation* (LDA) on sentimiento sobre titulares/noticias y tweets para FTSE100. Reportan correlación negativa fuerte entre sentimiento negativo en Twitter y volatilidad del día siguiente, y alcanzan 63% de acierto direccional para volatilidad con un clasificador que incorpora *topics* + *sentiment*.
+De forma complementaria, @deveikyte2022sentiment combinan *Latent Dirichlet Allocation* con sentimiento sobre titulares de noticias y *tweets* para FTSE100. Reportan correlación negativa fuerte entre sentimiento negativo en Twitter y volatilidad del día siguiente, y alcanzan 63% de acierto direccional para volatilidad con un clasificador que incorpora *topics* + *sentiment*.
 
-@zhang2024volatility abordan el pronóstico intradía (10/30/65-min y diario sin *overnight*) de RV para 93 acciones líquidas del S&P 500 (2011-2021) y plantean tres esquemas: Single (modelo por activo), Universal (datos agrupados de varios activos) y Augmented (agrupados + proxy de volatilidad de mercado). Hallan una commonality intradía fuerte y estable, sobre todo hacia el cierre, y muestran que las redes neuronales superan a regresiones lineales y modelos de árboles, con mejoras robustas incluso cuando se valida en acciones no vistas. Esto es relevante para nuestro proyecto puesto que permite su escalabilidad y generalización.
+Más recientemente, @zhang2024volatility abordan el pronóstico intradía en ventanas de 10, 30 y 65 minutos, así como diario sin overnight de RV para 93 acciones líquidas del S&P 500 entre 2011 y 2021, planteando tres esquemas: un modelo individual por activo, otro universal con datos agrupados y un esquema aumentado que combina agrupación con un *proxy* de volatilidad de mercado. Hallan una *commonality* intradía fuerte y estable, sobre todo hacia el cierre, y muestran que las redes neuronales superan a regresiones lineales y modelos de árboles, con mejoras robustas incluso cuando se validan en acciones no vistas. Esto es relevante para nuestro proyecto puesto que permite su escalabilidad y generalización.
 
-Por otro lado, @kumar2025hybrid proponen un modelo híbrido Q-VMD-ANN-LSTM-GRU para RV en los activos SSE, INFY y NIFTY (2015-2022). La descomposición VMD separa modos intrínsecos (IMFs), cada uno pronosticado con NN (ANN/LSTM/GRU), y un Q-learning ensambla dinámicamente los pronósticos por modo.
+Por otro lado, @kumar2025hybrid proponen un modelo híbrido Q-VMD-ANN-LSTM-GRU para RV en los activos SSE, INFY y NIFTY entre 2015 y 2022. La descomposición VMD separa modos intrínsecos, cada uno pronosticado con redes neuronales como ANN, LSTM y GRU, y un Q-learning ensambla dinámicamente los pronósticos por modo.
 
-@poteshman2000forecasting reevalúa la crítica de que la volatilidad implícita (IV) es un pronósitco sesgado de la RV futura. Muestra que mejorar la medición de RV (datos intradía de 5 minutos) reduce la mitad del sesgo, y que un modelo de opciones con precio de riesgo de volatilidad ≠ 0 elimina gran parte del residuo.
+Si bien gran parte de la literatura reciente se enfoca en machine learning, existe un debate sobre la utilidad de la volatilidad implícita. @poteshman2000forecasting reevalúa la crítica de que la volatilidad implícita es un pronóstico sesgado de la RV futura. Muestra que mejorar la medición de RV mediante datos intradía de 5 minutos reduce la mitad del sesgo, y que un modelo de opciones con precio de riesgo de volatilidad diferente a 0 elimina gran parte del residuo.
 
-Para finalizar, el *systematic review* de @mansilla2025factors sintetizan 40 estudios e identifican 15 factores, 27 modelos de ML y 5 esquemas de simulación, documentando una transición de modelos clásicos a híbridos de ML por mayor precisión, lo cual confirma tendencias de mejora del ML frente a HAR/GARCH, el valor de la atención y sentimiento como features adicionales y el uso de intradiarios + *pooling* como vías para generalizar.
+Para finalizar, el systematic review de @mansilla2025factors sintetizan 40 estudios e identifican 15 factores, 27 modelos de ML y 5 esquemas de simulación, documentando una transición de modelos clásicos a híbridos de ML por mayor precisión, lo cual confirma tendencias de mejora del ML frente a HAR/GARCH, el valor de la atención y sentimiento como *features* adicionales y el uso de intradiarios + *pooling* como vías para generalizar.
+
+# Tarea 3. Metodología
+
+Eq (1)
+
+$$
+X_t = X_0 + \int_{0}^{t} \mu_s \, ds 
++ \int_{0}^{t} \sigma_s \, dW_s 
++ \sum_{i=0}^{N_t} J_i, 
+\quad t \geq 0
+$$
+
+Eq (2)
+
+$$
+RV_t = \sum_{j=1}^{n} \left| \Delta_{t-1,j}^{n}X \right|^{2}
+$$
+
+Eq (3)
+
+$$
+RV_t = \beta_{0} + \beta_{1} RV_{t-1} + \beta_{2} RV_{t-1|t-5} + \beta_{3} RV_{t-1|t-22} + u_{t}
+$$
+
+Eq (4)
+
+$$
+RV_{t} = \beta_{0} + \beta' Z_{t-1} + u_{t}
+$$
+
+Eq (5)
+
+$$
+\hat{\beta} = \arg\min_{\beta}\mathcal{L}(\beta) 
+= \arg\min_{\beta} \sum_{t \in \text{in-sample}} \left( RV_{t+1} - f(Z_{t}; \beta) \right)^{2}
+$$
+
+Eq (6)
+
+$$
+\tilde{\mathcal{L}}(\beta; \theta) = \mathcal{L}(\beta) + \phi(\beta; \theta)
+$$
+
+Eq (7)
+
+$$
+\phi(\beta; \lambda) = \lambda \sum_{i=1}^{J} \beta_{i}^{2}
+$$
+
+Eq (8)
+
+$$
+\phi(\beta; \lambda) = \lambda \sum_{i=1}^{J} \left | \beta_{i} \right | 
+$$
+
+Eq (9)
+
+$$
+\phi(\beta; \lambda, \alpha) = \lambda \left( \alpha \sum_{i=1}^{J} \beta_i^{2} + (1-\alpha) \sum_{i=1}^{J} |\beta_i| \right)
+$$
+
+Eq (10)
+
+$$
+\hat{f}(Z_t) = \sum_{m=1}^{M} \widehat{RV}_m \, \mathbf{1}_{\{Z_t \in R_m\}}
+$$
+
+Eq (11)
+
+$$
+\hat{f}(Z_t) = \frac{1}{B} \sum_{b=1}^{B} \hat{f}^{\,b}(Z_t^{b})
+$$
+
+Eq (12)
+
+$$
+\hat{f}(Z_t) = \frac{1}{B} \sum_{b=1}^{B} \hat{f}^{\,b}(Z_t^{b}, \theta^{b})
+$$
+
+Eq (13)
+
+$$
+\hat{f}^{\,b}(Z_t) = \hat{f}^{\,b-1}(Z_t) + \nu \sum_{j=1}^{J_b} \rho^{jb} \, \mathbf{1}_{\{Z_t \in R_{jb}\}}
+$$
+
+Eq (14)
+
+$$
+a_{t}^{\theta_{l+1}, b_{l+1}} = g_l \!\left( \sum_{j=1}^{N_l} \theta_{j}^{(l)} a_{t}^{\theta_{l}, b_{l}} + b^{(l)} \right),\quad 1 \leq l \leq L
+$$
+
+Eq (15)
+
+$$
+\hat{f}(Z_t) = \bigl( g_L \circ \cdots \circ g_1 \bigr)(Z_t)
+$$
+
+Eq (16)
+
+$$
+\text{L-ReLU}(x) =\begin{cases}cx, & \text{if } x < 0, \\x,  & \text{otherwise}\end{cases}
+$$
+
+Eq (17)
+
+$$
+\mathcal{L}(\hat{f}(Z_t)) = \sum_{t \in \text{out-of-sample}} \left( RV_{t+1} - \hat{f}(Z_t) \right)^2 
+$$
 
 {{< pagebreak >}}
 
