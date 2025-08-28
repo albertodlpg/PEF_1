@@ -42,118 +42,43 @@ Escalar a una base de datos más amplia y reciente para evaluar el desempeño de
 
 ## Objetivo General 2.
 
-Aplicar el mejor modelo de predicción de volatilidad en contextos financieros prácticos para evaluar su valor agregado frente a medidas tradicionales de volatilidad.
+Aplicar el mejor modelo de predicción de volatilidad en el contexto de valuación de opciones para evaluar si existe valor agregado al utilizar la volatilidad predicha frente a medidas tradicionales de volatilidad.
 
 ### Objetivo Específico 2.1.
 
-Identificar y seleccionar diferentes contextos financieros en los que la predicción de volatilidad pueda aportar valor.
+Implementar el modelo de predicción de volatilidad dentro de esquemas de valuación de opciones para generar precios ajustados.
 
 ### Objetivo Específico 2.2.
 
-Diseñar una metodología de implementación que permita contrastar el uso de la volatilidad predicha por los modelos frente a medidas tradicionales.
+Comparar el desempeño del modelo frente a medidas tradicionales de volatilidad (histórica e implícita) en la precisión de los precios de las opciones.
+
+### Objetivo Específico 2.3.
+
+Analizar el impacto de la mejora en la predicción de volatilidad sobre métricas de error de valuación y en la efectividad de estrategias de cobertura, como evidencia del valor económico que puede aportar la metodología.
 
 # Tarea 2.
 
-## A machine learning approach to volatility forecasting. @christensen2023machine
+La literatura coincide en que la volatilidad no es observable y debe estimarse, ya sea como volatilidad realizada a partir de datos intradía o como volatilidad implícita a partir de precios de opciones, y que su pronóstico es fundamental para el *pricing* de derivados, *risk management* y *market making*. El *survey* de @qiu2025historical sintetiza los hechos estilizados de la volatilidad (clustering temporal, long memory, colas pesadas, efecto apalancamiento y reversión a la media) y contrasta cuatro familias de modelos de predicción de volatilidad: estadísticos (ARCH/GARCH y sus variantes), implícitos, Redes Neuronales Recurrentes (RNNs) y *transformers*, con evidencia de que los modelos de *machine learning* (ML) superan a los tradicionales en varios contextos, aunque con desafíos de interpretabilidad.
 
-Este artículo evalúa de forma sistemática qué tan competitivos son diversos algoritmos de *machine learning* (ML) para pronosticar la varianza realizada (RV) frente a la familia de modelos HAR/HAR-X. Aporta una comparación entre métodos de regularización (ridge, lasso, elastic net), árboles (bagging, random forest, gradient boosting) y redes neuronales. También establece evidencia de que el ML extrae información incremental a partir de covariables adicionales, así como un marco de interpretabilidad basado en *Accumulated Local Effects* (ALE) para entender importancia y relaciones no lineales entre predictores.
+El modelo HAR (Corsi, 2009), que consiste en una regresión con lags diarios, semanales y mensuales de la volatilidad realizada, se utiliza como base en casi todos los trabajos con RV. @christensen2023machine toman 29 acciones del DJIA (2001-2017) y comparan HAR y HAR-X con métodos de regularización (ridge/lasso/elastic net), árboles (bagging, RF, boosting) y redes neuronales. Concluyen que implementaciones "off-the-shelf" de ML superan consistentemente a HAR, y que extraen más información de variables firm-específicas y macro cuando se amplía el set (HAR-X). Esta evidencia es consistente con el survey de @qiu2025historical, que registra saltos de desempeño al pasar de modelos lineales a LSTM/transformers, pero recalca el costo en interpretabilidad y la necesidad de benchmarks comparables.
 
-### Datos y variables.
+@kyoung2019performance proponen y evalúan un LSTM sobre cinco índices (S&P 500, NASDAQ, DAX, KOSPI200, IPC) y encuentran que la mejor señal para predecir índice y volatilidad es una variante de momentum híbrido (distancia a medias móviles), y que, a diferencia del índice, la presición de la volatilidad no mejora al añadir muchas *features* (OHLC, volumen, etc.).
 
-Utilizan 29 acciones del índice Dow Jones Industrial Average (DJIA), con horizonte de un día adelante, en el periodo 2001-2017. La RV se construye con datos de alta frecuencia. Además de los rezagos diarios, semanales y mensuales de la RV (RVD, RVW, RVM), incorporan la volatilidad implícita (IV), un indicador de anuncio de resultados (EA), un índice de incertidumbre de política econímica (EPU), VIX, la tasa T-bill a 1 mes (US1M), *momentum* a 1 semana (M1W), retorno del Hang Seng (HSI), volumen en dólares (DVOL), y wl índice ADS de condiciones de negocio. Para organizar la información definen tres conjuntos de datos: M1 (sólo rezagos de RV), M2 (subconjunto "óptimo" vía BIC) y M3 (conjunto amplio de 12+ variables).
+Mientras que @christensen2023machine muestran ganancias al ampliar el set de predictores en combinación con ML y regularización, @kyoung2019performance alertan que para la volatilidad no siempre es mejor ya que la señal incremental de *features* genéricas se diluye y puede no aportar. Esto sugiere que el tipo de *feature* y la regularización son críticos.
 
-### Metodología.
+En un análisis más amplio, @DIAZ2024103286 estudian la volatilidad realizada del S&P 500 con más de 170 predictores financieros y macroeconómicos. Encuentran que los modelos de ML superan al HAR en horizontes cortos (1 mes), pero que en horizontes largos (6 y 12 meses) el HAR sigue siendo competitivo. Identifican como *drivers* clave a las medidas de incertidumbre financiera y macroeconómica (VIX, TED spread, EPU, índices de riesgo geopolítico y de política monetaria), así como factores de liquidez, spreads de crédito y variables del ciclo económico. Este resultado contrasta con la visión más optimista de @christensen2023machine, @kyoung2019performance y @zhang2024volatility, y resalta que el valor predictivo de ML depende tanto del horizonte como del tipo de variable utilizada.
 
-Comparan HAR/HAR-X contra: ridge, lasso, elastic net; bagging, random fores, gradient boosting; y varias arquitecturas de redes neuronales *"off-the-shelf"* con ajuste mínimo de hiperparámetros. Evalúan *out-of-sample* con MSE relativo al HAR y emplean *Model Confidence Set* (MCS) al 90% para comparar robustamente. También estudian versiones en log-volatilidad (L-HAR, etc.).
+@audrino2020impact integran las redes sociales (Twitter/StockTwits), noticias (RavenPack), Google Trends/Wikipedia y un abanico de predictores económicos dentro de un marco HAR con adaptive lasso. En 18 stocks de EE.UU y el DJIA (2012-2016) usando MedRV intradiario y encuentran que la atención (medida en volumen de *posts* y búsquedas) es el determinante más relevante, y que sentimiento/atención mejoran significativamente las predicciones de RV aunque con magnitud económica pequeña.
 
-### Resultados principales.
+@deveikyte2022sentiment combinan *Latent Dirichlet Allocation* (LDA) on sentimiento sobre titulares/noticias y tweets para FTSE100. Reportan correlación negativa fuerte entre sentimiento negativo en Twitter y volatilidad del día siguiente, y alcanzan 63% de acierto direccional para volatilidad con un clasificador que incorpora *topics* + *sentiment*.
 
--   Desempeño predictivo: Los métodos de ML superan consistentemente al HAR; entre ellos, random forest y redes neuronales suelen liderar.
+@zhang2024volatility abordan el pronóstico intradía (10/30/65-min y diario sin *overnight*) de RV para 93 acciones líquidas del S&P 500 (2011-2021) y plantean tres esquemas: Single (modelo por activo), Universal (datos agrupados de varios activos) y Augmented (agrupados + proxy de volatilidad de mercado). Hallan una commonality intradía fuerte y estable, sobre todo hacia el cierre, y muestran que las redes neuronales superan a regresiones lineales y modelos de árboles, con mejoras robustas incluso cuando se valida en acciones no vistas. Esto es relevante para nuestro proyecto puesto que permite su escalabilidad y generalización.
 
--   Información incremental: Frente a HAR-X, el ML extrae más señal de covariables adicionales y maneja mejor correlaciones altas, baja señal/ruido y no linealidades.
+Por otro lado, @kumar2025hybrid proponen un modelo híbrido Q-VMD-ANN-LSTM-GRU para RV en los activos SSE, INFY y NIFTY (2015-2022). La descomposición VMD separa modos intrínsecos (IMFs), cada uno pronosticado con NN (ANN/LSTM/GRU), y un Q-learning ensambla dinámicamente los pronósticos por modo.
 
--   Estados del mercado: ML mantiene ventajas tanto en episodios tranquilos como turbulentos; HAR-X tiende a deteriorarse en alta volatilidad. Con log-volatilidad, L-HAR-X mejora, pero L_NN vuelve a dominar en régimenes medio-altos.
+@poteshman2000forecasting reevalúa la crítica de que la volatilidad implícita (IV) es un pronósitco sesgado de la RV futura. Muestra que mejorar la medición de RV (datos intradía de 5 minutos) reduce la mitad del sesgo, y que un modelo de opciones con precio de riesgo de volatilidad ≠ 0 elimina gran parte del residuo.
 
-### Limitaciones y alcances.
-
-El estudio se centra en acciones del DJIA y en horizontes de un día y persisten preguntas sobre la transferibilidad a otros activos/mercados y el *tuning* de hiperparámetros más agresivo.
-
-Existen diferentes oportunidades de extensión para nuestro proyecto, entre ellas:
-
--   Extender con nuevos métodos de *boosting* moderno (XGBoost/LightGBM), redes recurrentes/transformers para series, y regulación con búsqueda sistemática de hiperparámetros.
-
--   Ampliar variables explicativas de análisis de sentimiento.
-
--   Evaluar más horizontes de tiempo.
-
-## The impact of sentiment and attention measures on stock market volatility. @audrino2020impact
-
-Este artículo estudia si medidas de sentimiento (tono en redes/noticias) y atención (volumen de mensajes/búsquedas) aportan poder predictivo adicional para la volatilidad realiazda.
-
-### Datos y variables.
-
--   Volatilidad realizada (índice Dow Jones y 18 acciones de EE.UU.) a partir de datos intradía de Oxford-Man Institute.
-
--   Redes sociales: Twitter (muestra histórica ≈1% de todos los tuits, 2012-2016) y StockTwits, de donde se extraen sentimiento (promedios y dispersión diaria) y volumen de mensajes como proxy de atención. El sentimiento se suaviza con filtro de Kalman para reducir ruido.
-
--   Noticias: RavenPack News Analytics (Event Sentiment Score, Composite Sentiment Score, News Impact Score), ponderados por relevancia del artículo para la empresa.
-
--   Atención web: Google Trends (búsquedas) y Wikipedia page views, tanto específicos de empresa como de mercado ("stock market", "financial markets", etc.)
-
--   Covariables económicas y financieras: factores Fama-French, ratios precio-fundamental, retornos de índices, VIX, tasas e indicadores de liquidez, entre otros.
-
-### Metodología.
-
--   Modelo base: HAR de Corsi para volatilidad realizada (captura persistencia mediante promedios diarios/semanales/mensuales).
-
--   Extensión: Sentiment-HAR, que agrega sentimientos y medidas de atención junto con las variables económicas. Dado el alto número de predictores, emplean adaptive lasso para selección y estimación, con pruebas de significancia conjunta y post-selección conservadoras.
-
-### Resultados principales.
-
-Evidencia in-sample:
-
--   Las variables de sentimiento/atención son conjuntamente significativas (F-tests) sobre la volatilidad futura en casi todos los activos (17/18 acciones y el índice).
-
--   La atención domina al sentimiento como forma funcional: el volumen (mensajes/búsquedas) es el predictor más relevante; el VIX aparece sistemáticamente entre las variables seleccionadas.
-
-Desempeño out-of-sample:
-
--   Horizonte 1 día: respecto al HAR base, añadir económicas (Economic-HAR) reduce el MSPE; al agregar sentimiento/atención (Sentiment-HAR), el MSPE baja aún más (para 12/18 acciones y el Dow Jones) y el R\^2 OOS mejora en promedio ≈1.26% vs Economic-HAR.
--   Horizontes 5 y 22 días: las mejoras adicionales por sentimiento/atención existen pero son más modestas y menos generalizadas, lo que sugiere un efecto de corta duración.
-
-## Revisión Literaria. \[ALT\]
-
-La predicción de la volatilidad financiera ha sido un campo de investigación en constante evolución desde la introducción de los modelos ARCH y GARCH (Engle, 1982; Bollerslev, 1986).
-
-Aunque estos enfoques capturaron por primera vez la heterocedasticidad condicional en los retornos, pronto se reconocieron limitaciones importantes, como su incapacidad para reproducir memoria larga, efectos de salto y patrones no lineales.
-
-En respuesta, Corsi (2009) propuso el modelo HAR, que combina componentes de volatilidad en distintas frecuencias (diaria, semanal y mensual) y se consolidó como un benchmark ampliamente utilizado en la literatura. Sin embargo, la creciente complejidad de los mercados y la disponibilidad de datos de alta frecuencia han impulsado el desarrollo de nuevas metodologías, particularmente aquellas basadas en aprendizaje automático (Machine Learning, ML).
-
-En este sentido, @christensen2023machine ofrecen un aporte fundamental al demostrar que algoritmos de ML ---incluyendo regularización, métodos basados en árboles y redes neuronales--- superan de manera sistemática al HAR en la predicción de volatilidad realizada.
-
-Sus resultados, obtenidos con datos de alta frecuencia de acciones del Dow Jones Industrial Average, muestran reducciones de hasta un 12% en el error cuadrático medio (MSE) frente al benchmark tradicional, incluso en entornos enriquecidos con predictores adicionales como volatilidad implícita, volumen de negociación y factores macroeconómicos.
-
-Otros estudios recientes refuerzan esta evidencia. @zhang2022volatility , en Journal of Financial Econometrics, documentan que los modelos de deep learning aplicados al análisis de "intraday commonality" ---patrones compartidos de volatilidad a nivel intradía--- ofrecen mejoras sustanciales respecto al HAR y a algoritmos de árboles.
-
-Por su parte, @kumar2025hybrid , en International Review of Economics & Finance, proponen modelos híbridos que integran descomposición de la señal mediante VMD con redes ANN, LSTM y GRU, concluyendo que estas arquitecturas son más precisas y robustas, especialmente bajo condiciones de riesgo extremo. Estos aportes consolidan el consenso en torno a que el ML ---en particular sus variantes profundas e híbridas--- representa la frontera actual en predicción de volatilidad.
-
-Desde una perspectiva de síntesis, @qiu2025historical presentan un panorama comparativo de metodologías tradicionales y de ML, destacando cómo arquitecturas modernas, como Transformers, se perfilan como alternativas sólidas en este campo.
-
-De manera complementaria, @mansilla2025factors desarrollan una revisión sistemática que clasifica las contribuciones del ML a lo largo de dos décadas, identificando vacíos persistentes en la integración de variables de sentimiento y en la aplicación de procedimientos estadísticos de comparación robusta como el Model Confidence Set (MCS). Si bien estos trabajos no aportan resultados empíricos directos, su utilidad radica en proveer un marco conceptual que orienta la selección metodológica y posiciona la investigación en el estado del arte.
-
-En línea con el Objetivo General 2, la literatura también ha explorado aplicaciones prácticas de la volatilidad predicha en contextos financieros. En el ámbito de derivados, @poteshman2000forecasting demuestra que la incorporación de predicciones más precisas de volatilidad mejora la calibración de superficies de volatilidad implícita, reduciendo sesgos en la valoración de opciones. Más recientemente, van Lent (2023) examina cómo los modelos de ML pueden predecir características de la superficie de volatilidad implícita (nivel, pendiente, curvatura), ofreciendo un marco metodológico útil para contrastar la información de volatilidad realizada y su valor agregado frente a métricas tradicionales de opciones.
-
-Por otra parte, la incorporación de información proveniente de noticias y análisis de sentimiento ha emergido como un área clave.
-
- (Brauneis y Sahiner , 2024), en Asia-Pacific Financial Markets, muestran que en criptomonedas los modelos HAR y de ML enriquecidos con indicadores de sentimiento logran capturar dinámicas no lineales que los enfoques tradicionales ignoran. De forma más amplia, @audrino2020impact y estudios recientes en Journal of Applied Econometrics evidencian que métricas de atención y análisis textual incrementan significativamente la capacidad predictiva de la volatilidad, lo que se traduce en aplicaciones concretas para la gestión de riesgos, la asignación de capital y el trading algorítmico.
-
-En conjunto, la literatura converge en dos hallazgos centrales.
-
-1)         Primero, que los métodos de ML superan de manera consistente a los modelos tradicionales como HAR y GARCH en precisión y robustez predictiva, validando el Objetivo General 1 de esta tesis.
-
-2)         Segundo, que la predicción de volatilidad, especialmente al integrar información proveniente de volatilidad implícita, noticias o sentimiento, aporta un valor agregado significativo en aplicaciones financieras prácticas, justificando el Objetivo General 2.
-
-No obstante, persisten vacíos relevantes: la falta de consenso sobre métricas de evaluación más allá del MSE, la necesidad de explorar de forma más sistemática la interacción entre volatilidad realizada e implícita en contextos de ML, y la escasez de replicaciones en bases de datos más recientes y amplias. Estos vacíos constituyen precisamente el espacio de contribución original que busca llenar la presente investigación.
+Para finalizar, el *systematic review* de @mansilla2025factors sintetizan 40 estudios e identifican 15 factores, 27 modelos de ML y 5 esquemas de simulación, documentando una transición de modelos clásicos a híbridos de ML por mayor precisión, lo cual confirma tendencias de mejora del ML frente a HAR/GARCH, el valor de la atención y sentimiento como features adicionales y el uso de intradiarios + *pooling* como vías para generalizar.
 
 {{< pagebreak >}}
 
