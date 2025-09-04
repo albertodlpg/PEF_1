@@ -20,7 +20,7 @@ editor: visual
 
 ## Tema.
 
-Comparación de Modelos para la Predicción de la Volatilidad: Un Estudio Empírico Aplicado al Mercado Financiero.
+Comparación de Modelos para la Predicción de la Volatilidad: Un Estudio Empírico Aplicado al Mercado Financiero Estadounidense.
 
 ## Asesor.
 
@@ -58,21 +58,97 @@ Comparar el desempeño del modelo frente a medidas tradicionales de volatilidad 
 
 Analizar el impacto de la mejora en la predicción de volatilidad sobre métricas de error de valuación y en la efectividad de estrategias de cobertura, como evidencia del valor económico que puede aportar la metodología.
 
+# Tarea 4. Introducción
+
+La volatilidad es uno de los indicadores más observados en los mercados financieros porque refleja, de manera inmediata, el nivel de riesgo percibido por inversionistas, gestores y reguladores. Su relevancia se evidencia en episodios como la crisis financiera de 2008 o la volatilidad extraordinaria durante la pandemia de COVID-19, donde pequeñas variaciones en su estimación alteraron la valuación de derivados y condicionaron estrategias de cobertura. Una predicción inadecuada puede traducirse en pérdidas millonarias, sino también en decisiones estratégicas equivocadas que afectan la estabilidad de portafolios e instituciones.
+
+Una de las áreas donde la estimación precisa de la volatilidad adquiere mayor trascendencia es en la valuación de opciones financieras. En modelos como Black-Scholes-Merton, la volatilidad es el único parámetro no observable que debe ser estimado, y pequeñas desviaciones en su cálculo pueden generar diferencias sustanciales en el precio teórico del derivado. Por ejemplo, una ligera subestimación puede llevar a vender contratos por debajo de su valor real, mientras que una sobreestimación lleva al encarecimiento de las primas y a la limitación de operaciones que de otra forma habrían sido rentables. En ambos casos, la consecuencia es una asignación ineficiente de recursos que deteriora la competitividad en los mercados.
+
+El costo económico de estos desajustes puede ilustrarse con un ejemplo sencillo. Consideremos una opción de compra europea sobre una acción con precio spot de USD 100, strike de USD 100, vencimiento a un año y tasa libre de riesgo de 5%. Si el mercado espera una volatilidad del 20%, el precio Black-Scholes es aproximadamente USD 10.4506. Sin embargo, si el gestor estima solo 15% de volatilidad, el precio cae a USD 8.4917: una diferencia de 18.74%. Para un portafolio de 10,000 contratos, la subestimación implica un error de valuación cercano a USD 1,958,900. Esto muestra cómo incluso un error modesto en la estimación puede acumularse en pérdidas millonarias en portafolios institucionales, y cómo una reducción marginal en el error de predicción puede tener un valor económico tangible.
+
+Más allá de la valuación, la estimación confiable de la volatilidad es crucial para la gestión del riesgo. Supongamos que un banco que calcula Value-at-Risk (VaR) a 1 día con un nivel de confianza del 99% sobre un portafolio de USD 1,000 millones. Si la volatilidad diaria real es de 2% pero el modelo subestima a 1.5%, el VaR estimado sería de aproximadamente USD 34.90 millones, cuando el riesgo real sería de USD 46.53 millones. Esta diferencia de USD 11.63 millones implica que la institución estaría subcapitalizada frente a pérdidas extremas, lo que podría amplificar su vulnerabilidad en episodios de estrés financiero. Por otra parte, si la volatilidad se sobreestima en 0.5 p.p., el VaR asciende a USD 58.16 millones, lo que obliga a mantener capital adicional innecesario, con el consecuente costo de oportunidad en términos de rentabilidad y liquidez.
+
+Adicionalmente, una de las áreas donde la estimación precisa de la volatilidad adquiere mayor importancia es en la medición de probabilidad de Default (PD) bajo el modelo estructural de Merton. Bajo este marco, la empresa incumple si, al vencimiento, es incapaz de pagar por completo sus obligaciones. La volatilidad, parámetro no observable, es la que influye enormemente en la dispersión de estos resultados. Si se llegan a tener pequeñas desviaciones en su cálculo, éstas alterarán enormemente la PD y, en consecuencia, el precio del crédito (spread) que compensa la pérdida esperada. Subestimar la volatilidad reduce la PD y el spread, lo que traslada la pérdida esperada al acreedor. Por otro lado, al sobreestimar, ésta infla la PD y encarece la deuda, limitando proyectos que sí serían rentables.
+
+Para ilustrar esto de mejor manera, se presenta un caso práctico a un año. Supongamos que se tiene un valor de los activos equivalente a USD 100 millones, un valor de la deuda a 1 año de USD 70 millones y una tasa libre de riesgo de 5%. Para aislar el efecto de la volatilidad, fijaremos una tasa de recuperación de 90.35% y una aproximación del spread de corto plazo mediante $S = PD \times (1-R)$. Ahora, para demostrar el impacto del mal cálculo de la volatilidad, asumiremos 3 escenarios:
+
+1.  Subestimando la volatilidad, la cual será de 15%.
+2.  La volatilidad "correcta", la cual será de 20%.
+3.  Sobreestimado la volatilidad, la cual será de 30%.
+
+Con ello, obtenemos los siguientes resultados:
+
+En el Escenario 1, la probabilidad de default es de 0.4192%, con un spread de 4.05 bps y un costo anual de 28,319 USD. En el Escenario 2, que asumimos como la volatilidad "correcta", la probabilidad de default asciende a 2.6595%, el spread se ubica en 25.66 bps y el costo anual es de 179,649 USD. Finalmente, en el Escenario 3, la probabilidad de default alcanza 11.3989%, el spread se incrementa hasta 110 bps y el costo anual se sitúa en 769,996 USD. Bajo esta premisa, una sobreestimación de la volatilidad (Escenario 3) genera un exceso de 590,347 USD frente al escenario de referencia, mientras que subestimar la volatilidad (Escenario 1) produce un "ahorro" de 151,329 USD respecto al Escenario 2, pero a costa de no cobrar el riesgo real.
+
+En un área diferente como la gestión de portafolios con control de riesgo, estrategias de *Target Volatility* ajustan la exposición del activo en función de la volatilidad pronosticada. Un sesgo en este pronóstico se traduce en un costo económico directo. Consideremos un fondo con capital de USD 100 millones, objetivo de riesgo de 10% anual, un activo con volatilidad real de 20% y Sharpe Ratio de 0.5. Si el gestor subestima la volatilidad a 15%, apalanca la posición a $w = 66.67$%, lo que eleva la volatilidad realizada a 13.33% y obteniendo una variación del 3.33%, esto produce que se incumpla el mandato. Mientras que sobreestimar a 30% reduce la exposición a $w = 33.33$% y el retorno esperado a $3.33$% (USD 3.33 millones). Sin embargo, con la estimación correcta (20%) el retorno esperado es 5% (USD 5.00 millones) pero manteniendo exactamente el objetivo de riesgo que nos imponen. En términos prácticos, al subestimar la volatilidad, ésta incrementa drawdowns y riesgos de incumplimiento; la sobreestimación genera subinversión y costos de oportunidad. Por ello, las mejores marginales en la precisión de la volatilidad se traducen en valor económico al optimizar el trade-off retorno-riesgo bajo restricciones reales de mandato de la organización.
+
+A continuación, se muestra una tabla que sintetiza el impacto económico de las estimaciones de la volatilidad desarrollado en los ejemplos anteriores:
+
++----------------------------------------------------------------------------+----------------------------------------------+-----------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Escenario                                                                  | Supuesto Base / Vol. Correcta                | Subestimación de Volatilidad                        | Sobreestimación de Volatilidad                  | Impacto Económico                                                                                                                   |
++============================================================================+==============================================+=====================================================+=================================================+=====================================================================================================================================+
+| Valuación de Opcion Call Europea BS.                                       | Vol = 20% $\rightarrow$ Precio = 10.45       | Vol = 15% $\rightarrow$ Precio = 8.49               | N/A                                             | Subestimación genera pérdidas millonarias por mala cobertura/valuación.                                                             |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+| S=100, K=100, T=1, r=5%                                                    |                                              | Diferencia: -18.74%                                 |                                                 |                                                                                                                                     |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+|                                                                            |                                              | Error total $\approx$ -USD 1.96M (10,000 contratos) |                                                 |                                                                                                                                     |
++----------------------------------------------------------------------------+----------------------------------------------+-----------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Gestión de Riesgo con VaR a 1 día al 99% sobre un portafolio de USD 1,000M | Vol real = 2% $\rightarrow$ VaR = USD 46.53M | Vol = 1.5% $\rightarrow$ VaR = USD 34.90M           | Vol = 2.5% $\rightarrow$ VaR = USD 34.90M       | Subestimación deja al banco subcapitalizado; sobreestimación implica costo de oportunidad por exceso de capital.                    |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+|                                                                            |                                              | Diferencia: -USD 11.63M (riesgo no cubierto)        | Exceso: USD 11.63M (capital extra inmovilizado) |                                                                                                                                     |
++----------------------------------------------------------------------------+----------------------------------------------+-----------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Crédito Corporativo con Modelo de Merton.                                  | Vol = 20% $\rightarrow$ PD = 2.6595%         | Vol = 15% $\rightarrow$ PD = 0.4192%                | Vol = 30% $\rightarrow$ PD = 11.3989%           | Subestimación traslada riesgo al acreedor; sobreestimación encarece deuda y restringe inversión rentable.                           |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+| Activos=100M, Deuda=70M, T=1, R = 90.35%                                   | Spread: 25.66 bps                            | Spread: 4.05 bps                                    | Spread: 110 bps                                 |                                                                                                                                     |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+|                                                                            | Costo $\approx$ USD 179,649                  | Costo $\approx$ USD 28,319                          | Costo $\approx$ USD 769,996                     |                                                                                                                                     |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+|                                                                            |                                              | "Ahorro" de USD 151,329 (no cobrar riesgo real)     | Exceso de USD 590,347 vs. referencia            |                                                                                                                                     |
++----------------------------------------------------------------------------+----------------------------------------------+-----------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Gestión de Portafolios con Target Volatility                               | Vol real= 20% $\rightarrow$ w = 50%          | Vol= 15% $\rightarrow$ w = 66.67%                   | Vol= 30% $\rightarrow$ w = 33.33%               | Subestimación lleva a mayores *drawdawns* y riesgo regulatorio; sobreestimación lleva a un costo de oportunidad por baja inversión. |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+| Fondo=100M. $\sigma$=10%, Sharpe =0.5                                      | Vol alcanzada =10%                           | Vol alcanzada =13.33%                               | Vol alcanzada =6.67% (subinversión)             |                                                                                                                                     |
+|                                                                            |                                              |                                                     |                                                 |                                                                                                                                     |
+|                                                                            | Retorno esperado = 5%                        | Retorno = 6.67%, pero con exceso de riesgo          | Retorno = 3.33%                                 |                                                                                                                                     |
++----------------------------------------------------------------------------+----------------------------------------------+-----------------------------------------------------+-------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+: Comparación del impacto de errores en la estimación de la volatilidad
+
+A lo largo del tiempo, se han desarrollado distintos enfoques para enfrentar el reto de la anticipación de la volatilidad. Los modelos ARCH y GARCH de @engle1982autoregressive y @bollerslev1986generalized, marcaron el inicio al capturar la heterocedasticidad de los retornos. Posteriormente, el modelo *Heterogeneous AutoRegressive* (HAR) de @corsi2009simple ofreció una alternativa parsimoniosa pero efectiva, capaz de representar la memoria heterogénea de los agentes en distintos horizontes temporales (diario, semanal y mensual). Su extensión, el HAR-X, incorpora variables adicionales para enriquecer la capacidad explicativa. Más recientemente, el avance de las técnicas de *Machine Learning* (ML) ha ampliado el campo, incorporando predictores no lineales y fuentes de información ---como medidas macroeconómicas o de sentimiento--- que superan los marcos econométricos tradicionales.
+
+A pesar de estos avances, la mayoría de la literatura se ha centrado en comparar la precisión estadística de los modelos, dejando en segundo plano una cuestión clave: ¿las mejoras en la predicción de volatilidad realmente se traducen en un mayor valor práctico para la valuación de opciones financieras? Este vacío constituye el punto de partida del presente trabajo. Partimos de la hipótesis de que, aunque los métodos de ML logran capturar mejor la no linealidad y enriquecen la predicción, su impacto en la eficiencia de precios de opciones puede no ser proporcional, lo que plantea un debate entre complejidad metodológica y utilidad práctica.
+
+El objetivo de esta investigación es doble.
+
+Primero, comparar la capacidad predictiva del modelo HAR y su extensión HAR-X con técnicas modernas de Machine Learning, utilizando series diarias para estimar la volatilidad histórica (HV) ---calculada a partir de los retornos logarítmicos diarios y empleada aquí como *proxy* de la volatilidad realizada (RV), entendida como la varianza acumulada de los retornos---.
+
+Segundo, analizar si estas predicciones permiten mejorar la valuación de opciones, vinculando la precisión estadística con la utilidad aplicada en la gestión del riesgo.
+
+De este modo, el estudio contribuye en dos frentes:
+
+1.  Metodológico, al ofrecer evidencia comparativa entre modelos tradicionales y modernos.
+
+2.  Aplicado, al mostrar cómo la predicción de volatilidad puede impactar directamente la eficiencia de precios y las decisiones de cobertura.
+
+Finalmente, el documento se organiza de la siguiente manera: tras esta introducción, se presenta la revisión de la literatura, seguida de la metodología, los resultados empíricos y, por último, las conclusiones junto con posibles líneas de investigación futura.
+
 # Tarea 2. Revisión Literaria
 
-La literatura coincide en que la volatilidad no es observable y debe estimarse, ya sea como volatilidad realizada a partir de datos intradía o como volatilidad implícita a partir de precios de opciones, y que su pronóstico es fundamental para el *pricing* de derivados, *risk management* y *market making*. El *survey* de @qiu2025historical sintetiza los hechos estilizados de la volatilidad, entre ellos el clustering temporal, la memoria de largo plazo, las colas pesadas, el efecto apalancamiento y reversión a la media. Asimismo, contrasta cuatro familias de modelos de predicción de volatilidad: los estadísticos como ARCH, GARCH y sus variantes, los implícitos, las Redes Neuronales Recurrentes y los *transformers*. El estudio concluye que los modelos de *machine learning* superan a los tradicionales en varios contextos, aunque con desafíos de interpretabilidad.
+La literatura coincide en que la volatilidad no es observable y debe estimarse, ya sea como volatilidad realizada a partir de datos intradía o como volatilidad implícita a partir de precios de opciones, y que su pronóstico es fundamental para el *pricing* de derivados, *risk management* y *market making*. El *survey* de @qiu2025historical sintetiza los hechos estilizados de la volatilidad, entre ellos el clustering temporal, la memoria de largo plazo, las colas pesadas, el efecto apalancamiento y reversión a la media. Asimismo, contrasta cuatro familias de modelos de predicción de volatilidad: los estadísticos como ARCH, GARCH y sus variantes, los implícitos, las Redes Neuronales Recurrentes y los *transformers*. El estudio concluye que los modelos de *machine learning* superan a los tradicionales en varios contextos, aunque con desafíos de interpretabilidad. Por ello, este trabajo busca considerar que el valor de un modelo no se limita a mejorar el RMSE de la predicción de (volatilidad), sino a maximizar y hacer eficiente el impacto económico directo derivado de una mejor estimación de la volatilidad en métricas como mispricing de opciones, error de cobertura en estrategias delta-neutrales y reducción de capital en esquemas de VaR. Es decir, trataremos la precisión estadística como un medio y como un fin.
 
-En esta línea, el modelo HAR (@corsi2009simple) , que consiste en una regresión con lags diarios, semanales y mensuales de la volatilidad realizada, se utiliza como base en casi todos los trabajos con RV. @christensen2023machine toman 29 acciones del DJIA entre 2001 y 2017, comparando HAR y HAR-X con métodos de regularización como *ridge*, *lasso* y *elastic net*, con árboles como *bagging*, RF y *boosting*, así como redes neuronales. Concluyen que implementaciones \"*off-the-shelf*\" de ML superan consistentemente a HAR, y que extraen más información de variables firm-específicas y macro cuando se amplía el set. Esta evidencia es consistente con el *survey* de @qiu2025historical , que registra saltos de desempeño al pasar de modelos lineales a LSTM/*transformers*, pero recalca el costo en interpretabilidad y la necesidad de *benchmarks* comparables.
+En esta línea, el modelo HAR de @corsi2009simple, que consiste en una regresión con lags diarios, semanales y mensuales de la volatilidad realizada, se utiliza como base en casi todos los trabajos con RV. @christensen2023machine toman 29 acciones del DJIA entre 2001 y 2017, comparando HAR y HAR-X con métodos de regularización como *ridge*, *lasso* y *elastic net*, con árboles como *bagging*, RF y *boosting*, así como redes neuronales. Concluyen que implementaciones "*off-the-shelf*" de ML superan consistentemente a HAR, y que extraen más información de variables firm-específicas y macro cuando se amplía el set. Este hallazgo valida que incluso técnicas accesibles de ML, sin necesidad de arquitecturas sofisticadas, ya logran mejorar el rendimiento del modelo HAR. Esto implica que los modelos tradicionales ampliamente utilizados podrían estar infrautilizando la información disponible en los mercados. Para gestores de riesgo o *traders*, la adopción de ML podría aumentar significativamente la precisión en la detección de señales, sin requerir *datasets* artificialmente complejos. Esta evidencia es consistente con el *survey* de @qiu2025historical , que registra saltos de desempeño al pasar de modelos lineales a LSTM/*transformers*, pero recalca el costo en interpretabilidad y la necesidad de *benchmarks* comparables. De esta manera, nuestra investigación se apalanca de esta información, utilizaremos los modelos HAR/HAR-X como benchmarks obligatorios para cuantificar la mejora que ofrece ML parsimonioso sobre el estándar de la industria. A partir de esto, verificamos si la mejora estadística se traduce en un valor económico tangible, entregando evidencia de que gestores de portafolio y risk managers puedan migrar a estos modelos y capturar beneficios tangibles sin necesidad de una infraestructura compleja.
 
-Profundizando en aplicaciones con arquitecturas de *deep learning*, @kyoung2019performance proponen y evalúan un LSTM sobre cinco índices ---S&P 500, NASDAQ, DAX, KOSPI200 e IPC--- y encuentran que la mejor señal para predecir índice y volatilidad es una variante de *momentum* híbrido, medida como distancia a medias móviles, y que, a diferencia del índice, la precisión de la volatilidad no mejora al añadir muchas *features* como precios OHLC o volumen.
+Profundizando en aplicaciones con arquitecturas de *deep learning*, @kyoung2019performance proponen y evalúan un LSTM sobre cinco índices ---S&P 500, NASDAQ, DAX, KOSPI200 e IPC--- y encuentran que la mejor señal para predecir índice y volatilidad es una variante de *momentum* híbrido, medida como distancia a medias móviles, y que, a diferencia del índice, la precisión de la volatilidad no mejora al añadir muchas *features* como precios OHLC o volumen. Esto es crucial para nuestro trabajo al decidir evitar arquitecturas profundas como modelos principales. Así podemos determinar si el incremento de la precisión estadística justifica su costo de implementación, o si modelos parsimoniosos entregan el 80-90% del beneficio económico.
 
-Este contraste resulta relevante si se compara con @christensen2023machine , quienes muestran ganancias al ampliar el set de predictores en combinación con ML y regularización, Mientras los primeros encuentran valor en la expansión de variables, los segundos advierten que en el caso de la volatilidad la señal incremental de variables genéricas tiende a diluirse. Esto sugiere que el tipo de feature incorporada y la estrategia de regularización son determinantes en el desempeño
+Este contraste resulta relevante si se compara con @christensen2023machine , quienes muestran ganancias al ampliar el set de predictores en combinación con ML y regularización. Mientras los primeros encuentran valor en la expansión de variables, los segundos advierten que en el caso de la volatilidad la señal incremental de variables genéricas tiende a diluirse. Esto sugiere que el tipo de feature incorporada y la estrategia de regularización son determinantes en el desempeño,
 
-En un análisis más amplio, @DIAZ2024103286 estudian la volatilidad realizada del S&P 500 con más de 170 predictores financieros y macroeconómicos. Encuentran que los modelos de ML superan al HAR en horizontes cortos de un mes, pero que en horizontes largos de 6 y 12 meses, el HAR sigue siendo competitivo. Identifican como *drivers* clave a las medidas de incertidumbre financiera y macroeconómica  como el VIX, el *TED spread*, el EPU y los índices de riesgo geopolítico y de política monetaria, así como factores de liquidez, *spreads* de crédito y variables del ciclo económico. Este resultado contrasta con la visión más optimista de @christensen2023machine , @kyoung2019performance y @zhang2024volatility , y resalta que el valor predictivo de ML depende tanto del horizonte como del tipo de variable utilizada.
+En un análisis más amplio, @DIAZ2024103286 estudian la volatilidad realizada del S&P 500 con más de 170 predictores financieros y macroeconómicos. Encuentran que los modelos de ML superan al HAR en horizontes cortos de un mes, pero que en horizontes largos de 6 y 12 meses, el HAR sigue siendo competitivo. Identifican como *drivers* clave a las medidas de incertidumbre financiera y macroeconómica  como el VIX, el *TED spread*, el EPU y los índices de riesgo geopolítico y de política monetaria, así como factores de liquidez, *spreads* de crédito y variables del ciclo económico. Este resultado contrasta con la visión más optimista de @christensen2023machine , @kyoung2019performance y @zhang2024volatility , y resalta que el valor predictivo de ML depende tanto del horizonte como del tipo de variable utilizada. Esto es especialmente relevante, ya que sugiere que en estrategias de inversión de largo plazo, los métodos tradicionales como el HAR siguen ofreciendo una base robusta y confiable. En cambio, para enfoque prácticos de corto plazo, la ganancia en precisión que ofrecen los modelos de ML es más marcada, lo que los convierte en herramientas particularmente valiosas para quienes buscan captar señales rápidas en mercados dinámicos. Dada esta evidencia, nuestro análisis será delimitado a horizontes diarios y de corto plazo, escenario donde ML muestra la mayor ventaja, pero sin descartar HAR/HAR-X como líneas base para evitar sesgos a corto plazo y preservar la comparación entre los modelos.
 
 Bajo la misma línea de ampliar fuentes de información, @audrino2020impact integran las redes sociales como Twitter y StockTwits, noticias de RavenPack, tendencias de Google y Wikipedia, junto con un abanico de predictores económicos dentro de un marco HAR con *adaptive lasso*. En 18 *stocks* de EE.UU y el DJIA entre 2012 y 2016 usando MedRV intradiario y encuentran que la atención medida en volumen de *posts* y búsquedas es el determinante más relevante, y que sentimiento/atención mejoran significativamente las predicciones de RV aunque con magnitud económica pequeña.
 
-De forma complementaria, @deveikyte2022sentiment combinan *Latent Dirichlet Allocation* con sentimiento sobre titulares de noticias y *tweets* para FTSE100. Reportan correlación negativa fuerte entre sentimiento negativo en Twitter y volatilidad del día siguiente, y alcanzan 63% de acierto direccional para volatilidad con un clasificador que incorpora *topics* + *sentiment*.
+De forma complementaria, @deveikyte2022sentiment combinan *Latent Dirichlet Allocation* con sentimiento sobre titulares de noticias y *tweets* para FTSE100. Reportan correlación negativa fuerte entre sentimiento negativo en Twitter y volatilidad del día siguiente, y alcanzan 63% de acierto direccional para volatilidad con un clasificador que incorpora *topics* + *sentiment*. Con este aporte podemos confirmar que las fuentes no tradicionales de información como lo son las redes sociales en efecto sí anticipan los movimientos de riesgos, por lo que consideramos que los modelos de pronóstico no deben limitarse a variables de mercado y macroeconómicas, ya que incorporar un componente de sentimiento puede mejorar la detección temprana de estrés financiero agregado, con aplicaciones directas para la gestión de portafolios y estrategias de *trading* algorítmico.
+
+Nuestro trabajo incorpora estas señales de atención y sentimiento únicamente en la medida en que reduzcan el error de coberturas o mispricing de opciones. Si determinamos que su aporte es puramente estadístico más no económico, serán descartados. Este enfoque nos permite aclarar a partir de que punto trasciende de métricas de pronóstico hacia impacto en aplicaciones de mercado reales.
 
 Más recientemente, @zhang2024volatility abordan el pronóstico intradía en ventanas de 10, 30 y 65 minutos, así como diario sin overnight de RV para 93 acciones líquidas del S&P 500 entre 2011 y 2021, planteando tres esquemas: un modelo individual por activo, otro universal con datos agrupados y un esquema aumentado que combina agrupación con un *proxy* de volatilidad de mercado. Hallan una *commonality* intradía fuerte y estable, sobre todo hacia el cierre, y muestran que las redes neuronales superan a regresiones lineales y modelos de árboles, con mejoras robustas incluso cuando se validan en acciones no vistas. Esto es relevante para nuestro proyecto puesto que permite su escalabilidad y generalización.
 
@@ -80,115 +156,124 @@ Por otro lado, @kumar2025hybrid proponen un modelo híbrido Q-VMD-ANN-LSTM-GRU p
 
 Si bien gran parte de la literatura reciente se enfoca en machine learning, existe un debate sobre la utilidad de la volatilidad implícita. @poteshman2000forecasting reevalúa la crítica de que la volatilidad implícita es un pronóstico sesgado de la RV futura. Muestra que mejorar la medición de RV mediante datos intradía de 5 minutos reduce la mitad del sesgo, y que un modelo de opciones con precio de riesgo de volatilidad diferente a 0 elimina gran parte del residuo.
 
-Para finalizar, el systematic review de @mansilla2025factors sintetizan 40 estudios e identifican 15 factores, 27 modelos de ML y 5 esquemas de simulación, documentando una transición de modelos clásicos a híbridos de ML por mayor precisión, lo cual confirma tendencias de mejora del ML frente a HAR/GARCH, el valor de la atención y sentimiento como *features* adicionales y el uso de intradiarios + *pooling* como vías para generalizar.
+Para finalizar, el systematic review de @mansilla2025factors sintetizan 40 estudios e identifican 15 factores, 27 modelos de ML y 5 esquemas de simulación, documentando una transición de modelos clásicos a híbridos de ML por mayor precisión, lo cual confirma tendencias de mejora del ML frente a HAR/GARCH, el valor de la atención y sentimiento como *features* adicionales y el uso de intradiarios + *pooling* como vías para generalizar. A través del estudio de la evolución en el campo se ha demostrado que la tendencia hacia los modelos híbridos no es aislada sino que consistente en múltiples estudios, por lo que existe un consenso académico que ya se inclina a este enfoque. El presente trabajo sigue esta línea como marco de referencia para explorar cómo enriquecer la precisión en la predicción de la volatilidad y optimizar el uso de los recursos computacionales, al mismo tiempo que se evalúa el valor agregado de incorporar nuevas variables explicativas en comparación con *benchmarks* tradicionales como el HAR.
+
+El presente trabajo se posiciona precisamente en la intersección de éstos métodos: buscamos integrar simultáneamente modelos HAR, métodos de *Machine Learning* y predictores de sentimiento con un enfoque aplicado en derivados financieros, esto mientras se busca optimizar el uso de los recursos computacionales. De esta manera, buscaremos cumplir dos propósitos:
+
+1.  Contrastar la eficiencia relativa de los distintos enfoques metodológicos mediante la traducción en ganancia económica medible en diferentes aplicaciones.
+2.  Aportar evidencia sobre el funcionamiento y el impacto de la información extra-financiera en la formación de precios de opciones financieras.
 
 # Tarea 3. Metodología
 
-Eq (1)
+En el marco de este proyecto, la variación cuadrática (QV) constituye el nivel teórico de volatilidad acumulada de un activo en un intervalo de tiempo. Sin embargo, dado que no es directamente observable y los precios solo se registran en intervalos discretos, se recurre a estimadores construidos a partir de los datos disponibles. En la literatura, la Realized Volatility (RV) ---calculada a partir de rendimientos intradía de alta frecuencia--- es un estimador consistente de la QV.
+
+En nuestro caso, al trabajar con precios de cierre diarios y no con datos intradía, aproximaremos la volatilidad mediante la volatilidad histórica (HV) calculada a partir de los rendimientos logarítmicos:
 
 $$
-X_t = X_0 + \int_{0}^{t} \mu_s \, ds 
-+ \int_{0}^{t} \sigma_s \, dW_s 
-+ \sum_{i=0}^{N_t} J_i, 
-\quad t \geq 0
+r_t = \ln \!\left( \frac{P_t}{P_{t-1}} \right), HV_t^{(h)} = \sum_{i=1}^{h} r_{t-i}^2.
 $$
 
-Eq (2)
+Así, $HV_{t}^{(1)} = r_{t}^{2}$ corresponde al estimador de la varianza diaria, mientras que para horizontes más largos se consideran ventanas móviles: por ejemplo, $HV_{t}^{(5)}$ para la volatilidad semanal y $HV_{t}^{(22)}$ para la volatilidad mensual.
+
+De esta manera, podemos capturar la heterogeneidad temporal de los mercados financieros incorporando rezagos en distintas frecuencias ---diaria, semanal y mensual--- y proporcionar una base sólida para la posterior fase de modelado.
+
+Este paso inicial nos genera una medida de volatilidad comparable con metodologías tradicionales como el HAR, que nos permitirá contrastar mejoras técnicas más avanzadas.
+
+La propuesta metodológica, por tanto, busca adoptar el enfoque de la Realized Volatility de @christensen2023machine a un entorno de datos de menor frecuencia, utilizando la HV como proxy de la QV. Esto establece una base para futuras extensiones que incluyan nuevos predictores, horizontes de pronóstico más amplios y aplicaciones prácticas en gestión de riesgos y valuación de derivados.
+
+Los datos a utilizar serán los precios de cierre diarios de los 29 componentes del Dow Jones Industrial Average (DJIA), excluyendo Visa debido a la falta de una serie histórica completa. La elección de este índice responde a la disponibilidad de información, a su relevancia representativa del mercado accionario estadounidense y a la facilidad de manejo de sus componentes.
+
+El período de análisis abarcará desde el 29 de enero de 2001 hasta el 31 de diciembre de 2017, lo que permite capturar distintos regímenes de volatilidad, como la crisis financiera global de 2008, periodos de estabilidad intermedios y episodios de alta incertidumbre como la crisis de deuda europea. De esta manera, se garantiza que la muestra abarque tanto episodios de calma como turbulencia en los mercados.
+
+La frecuencia de los datos de precios será diaria, y el horizonte de predicción se definirá a un día hacia adelante, siguiendo el diseño del estudio de @christensen2023machine, pero adaptado a datos de menor granularidad temporal.
+
+El conjunto de variables explicativas es la siguiente:
+
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| Variable                                 | Definición                                                                                                          | Fuente                                  | Motivación                                                                     |
++==========================================+=====================================================================================================================+=========================================+================================================================================+
+| HV lags (diaria, semanal, mensual)       | Volatilidad histórica calculada a partir de retornos logarítmicos diarios, agregada a horizontes de 1, 5 y 22 días. | Precios diarios (tidyquant, Bloomberg). | Captura la persistencia y memoria larga de la volatilidad.                     |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| Implied Volatility (IV)                  | Volatilidad implícita de opciones sobre cada acción.                                                                | Bloomberg.                              | Refleja expectativas del mercado hacia la volatilidad futura.                  |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| Earnings Announcements (EA)              | Variable indicadora para los días en que la empresa publica resultados trimestrales.                                | Bloomberg.                              | Los anuncios de utilidades suelen generar saltos en la volatilidad.            |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| 1-week Momentum (M1W)                    | Retorno acumulado de la acción en los últimos 5 días hábiles.                                                       | Precios diarios (tidyquant, Bloomberg). | Captura la inercia o reversión de corto plazo.                                 |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| Dollar Trading Volume (DVOL)             | Volumen negociado en dólares.                                                                                       | tidyquant, Bloomberg.                   | Proxy de liquidez y presión de negociación.                                    |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| CBOE Volatility Index (VIX)              | Volatilidad implícita del S&P 500 a 30 días.                                                                        | Bloomberg, CBOE.                        | Indicador agregado de la volatilidad del mercado.                              |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| Hang Seng Index squared log-return (HSI) | Retorno al cuadrado del índice Hang Seng (Hong Kong).                                                               | Bloomberg.                              | Representa choques externos desde mercados asiáticos.                          |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| ADS Index (Business Conditions)          | Índice de condiciones económicas de Arroba, Diebold y Scotti.                                                       | Federal Reserve Bank of Philadelphia.   | Refleja el estado de la economía con actualización de alta frecuencia.         |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| US 1-month T-Bill Rate (US1M)            | Rendimiento de los bonos del Tesoro de EE.UU. a 1 mes.                                                              | FRED, Bloomberg.                        | Indicador de política monetaria y condiciones de financiamiento.               |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+| Economic Policy Uncertainty Index (EPU)  | Índice de incertidumbre de política económica.                                                                      | Portal oficial del EPU Index.           | Mide el impacto de la incertidumbre política y regulatoria sobre los mercados. |
++------------------------------------------+---------------------------------------------------------------------------------------------------------------------+-----------------------------------------+--------------------------------------------------------------------------------+
+
+: Lista de variables explicativas.
+
+En cuanto al procesamiento e implementación de modelos, éste se llevará a cabo en el lenguaje de programación R (R Core Team, 2024), por su robustez en métodos econométricos, paquetes especializados en análisis de volatilidad y librerías dedicadas a modelos clásicos y modernos de predicción.
+
+Complementariamente, para la obtención y gestión de datos financieros, se empleará el paquete tidyquant, que facilita la descarga de precios históricos de activos directamente desde fuentes públicas y su integración con el ecosistema tidyverse. De esta manera se garantiza un flujo de trabajo eficiente en la construcción de series de retornos y en la preparación de las variables explicativas.
+
+Adicionalmente, la reproducibilidad de los resultados se garantizará mediante:
+
+-   Fijación de semillas aleatorias en los experimentos.
+
+-   Documentación detallada de los scripts de código.
+
+-   Control de versiones de los archivos de análisis.
+
+El uso de R y su ecosistema de paquetes permitirá asegurar la rigurosidad metodológica y la replicación precisa del estudio original, al tiempo que brindará flexibilidad para extender el análisis hacia nuevas metodologías y bases de datos en fases posteriores del proyecto.
+
+Una vez caracterizada la naturaleza de los datos empleados, resulta indispensable establecer la clase de modelos que permitan capturar y predecir la dinámica de la volatilidad. La elección metodológica debe atender dos criterios fundamentales:
+
+1.  La capacidad del modelo para reflejar las propiedades empíricas de la volatilidad financiera, en particular su persistencia y dependencia a diferentes horizontes temporales.
+
+2.  La necesidad de contar con una especificación parsimoniosa que facilite la comparación frente a enfoques más sofisticados, tales como los que están basados en Machine Learning. 
+
+En este sentido, el modelo Heterogeneous AutoRegressive (HAR) propuesto por @corsi2009simple se ha posicionado como un estándar en la literatura financiera. El modelo HAR se fundamenta en la idea de que los participantes del mercado interactúan en horizontes distintos (diario, semanal y mensual), y que la volatilidad observada refleja la superposición de estas dinámicas heterogéneas.
+
+En nuestro caso, dado que empleamos datos diarios, se utilizará la Historical Volatility (HV) como medida de referencia. La formulación del modelo HAR se expresa como:
 
 $$
-RV_t = \sum_{j=1}^{n} \left| \Delta_{t-1,j}^{n}X \right|^{2}
+HV_t = \beta_{0} + \beta_{1} HV_{t-1}^{(1)} + \beta_{2} HV_{t-1}^{(5)} + \beta_{3} HV_{t-1}^{(22)} + u_{t}
 $$
 
-Eq (3)
+Donde:
+
+-   $HV_{t}$: volatilidad histórica del día t.
+
+-   $HV_{t-1}^{(1)}$: volatilidad del día anterior.
+
+-   $HV_{t-1}^{(1)}$: promedio de los últimos 5 días.
+
+-   $HV_{t-1}^{(1)}$: promedio de los últimos 22 días.
+
+-   $\beta_{0},\beta_{1},\beta_{2},\beta_{3}$: coeficientes estimados.
+
+-   $u_{t}$: error aleatorio.
+
+No obstante, aunque el HAR ha demostrado ser altamente efectivo como modelo de referencia, su limitación principal radica en que únicamente explota la información histórica de la propia volatilidad.
+
+Esto ha motivado la extensión denominada HAR-X, en la cual se incorporan variables exógenas que pueden contener información prospectiva adicional, tales como la volatilidad implícita, indicadores macroeconómicos o características específicas de las firmas. Su formulación se expresa como:
 
 $$
-RV_t = \beta_{0} + \beta_{1} RV_{t-1} + \beta_{2} RV_{t-1|t-5} + \beta_{3} RV_{t-1|t-22} + u_{t}
+HV_{t} = \beta_{0} + \beta'Z_{t-1}+u_t
 $$
 
-Eq (4)
+Donde:
 
-$$
-RV_{t} = \beta_{0} + \beta' Z_{t-1} + u_{t}
-$$
+-   $\beta=(\beta_{1},\cdots,\beta_{J})'$ y J es el número de variables explicativas en el dataset.
 
-Eq (5)
+En consecuencia, la selección de estos modelos se deriva a que cumplen un doble propósito:
 
-$$
-\hat{\beta} = \arg\min_{\beta}\mathcal{L}(\beta) 
-= \arg\min_{\beta} \sum_{t \in \text{in-sample}} \left( RV_{t+1} - f(Z_{t}; \beta) \right)^{2}
-$$
+1.  Se constituyen como benchmarks ampliamente aceptados que permiten asegurar la compatibilidad con la literatura previa.
 
-Eq (6)
-
-$$
-\tilde{\mathcal{L}}(\beta; \theta) = \mathcal{L}(\beta) + \phi(\beta; \theta)
-$$
-
-Eq (7)
-
-$$
-\phi(\beta; \lambda) = \lambda \sum_{i=1}^{J} \beta_{i}^{2}
-$$
-
-Eq (8)
-
-$$
-\phi(\beta; \lambda) = \lambda \sum_{i=1}^{J} \left | \beta_{i} \right | 
-$$
-
-Eq (9)
-
-$$
-\phi(\beta; \lambda, \alpha) = \lambda \left( \alpha \sum_{i=1}^{J} \beta_i^{2} + (1-\alpha) \sum_{i=1}^{J} |\beta_i| \right)
-$$
-
-Eq (10)
-
-$$
-\hat{f}(Z_t) = \sum_{m=1}^{M} \widehat{RV}_m \, \mathbf{1}_{\{Z_t \in R_m\}}
-$$
-
-Eq (11)
-
-$$
-\hat{f}(Z_t) = \frac{1}{B} \sum_{b=1}^{B} \hat{f}^{\,b}(Z_t^{b})
-$$
-
-Eq (12)
-
-$$
-\hat{f}(Z_t) = \frac{1}{B} \sum_{b=1}^{B} \hat{f}^{\,b}(Z_t^{b}, \theta^{b})
-$$
-
-Eq (13)
-
-$$
-\hat{f}^{\,b}(Z_t) = \hat{f}^{\,b-1}(Z_t) + \nu \sum_{j=1}^{J_b} \rho^{jb} \, \mathbf{1}_{\{Z_t \in R_{jb}\}}
-$$
-
-Eq (14)
-
-$$
-a_{t}^{\theta_{l+1}, b_{l+1}} = g_l \!\left( \sum_{j=1}^{N_l} \theta_{j}^{(l)} a_{t}^{\theta_{l}, b_{l}} + b^{(l)} \right),\quad 1 \leq l \leq L
-$$
-
-Eq (15)
-
-$$
-\hat{f}(Z_t) = \bigl( g_L \circ \cdots \circ g_1 \bigr)(Z_t)
-$$
-
-Eq (16)
-
-$$
-\text{L-ReLU}(x) =\begin{cases}cx, & \text{if } x < 0, \\x,  & \text{otherwise}\end{cases}
-$$
-
-Eq (17)
-
-$$
-\mathcal{L}(\hat{f}(Z_t)) = \sum_{t \in \text{out-of-sample}} \left( RV_{t+1} - \hat{f}(Z_t) \right)^2 
-$$
+2.  Ofrecen un marco de referencia excelente para evaluar el valor agregado que pueden aportar metodologías más complejas, esto debido a la incorporación de estructuras no lineales y conjuntos de predictores de mayor dimensión. Permitiendo traducir los resultados en valor económico tangible para la valuación de opciones, aportando evidencia práctica sobre la utilidad de los modelos propuestos.
 
 {{< pagebreak >}}
 
