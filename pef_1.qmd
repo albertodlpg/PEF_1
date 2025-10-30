@@ -275,6 +275,10 @@ En consecuencia, la selección de estos modelos se deriva a que cumplen un doble
 
 2.  Ofrecen un marco de referencia excelente para evaluar el valor agregado que pueden aportar metodologías más complejas, esto debido a la incorporación de estructuras no lineales y conjuntos de predictores de mayor dimensión. Permitiendo traducir los resultados en valor económico tangible para la valuación de opciones, aportando evidencia práctica sobre la utilidad de los modelos propuestos.
 
+# Enlace al Video en YouTube
+
+Se puede acceder al video dando click [aquí](https://youtu.be/8FuBc1Z04GM) o a través de: <https://youtu.be/8FuBc1Z04GM>
+
 {{< pagebreak >}}
 
 # Bibliografía
